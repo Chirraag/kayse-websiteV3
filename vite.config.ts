@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     host: "0.0.0.0", // Listen on all network interfaces
     allowedHosts: [
-      "0974a736-64cd-4360-a7f3-c124160c89d6-00-3ebr5684su9bi.pike.replit.dev",
+      "b4b51863-8eaf-467c-b193-e0eca855e89b-00-thkgcqw6fgaa.pike.replit.dev",
       "kayse-ai.replit.app", // Added blocked host
     ],
   },

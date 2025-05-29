@@ -1,6 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { AlertCircle, Clock, Users, UserMinus, Scale } from "lucide-react";
+import {
+  AlertCircle,
+  Clock,
+  Users,
+  UserMinus,
+  Scale,
+  ArrowRight,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 
@@ -714,6 +721,31 @@ const ProblemStatement: React.FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* CTA Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="text-center mt-12"
+              >
+                <a
+                  href="/practice-areas"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-2xl
+                           bg-gradient-to-r from-blue-500 to-blue-600
+                           shadow-[0_8px_32px_rgba(59,130,246,0.3)]
+                           hover:shadow-[0_12px_40px_rgba(59,130,246,0.4)]
+                           transform hover:scale-[1.02] transition-all duration-300
+                           group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative text-white">
+                    Explore Practice Areas
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform duration-200" />
+                </a>
+              </motion.div>
             </div>
           </div>
         </motion.div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const FinalCTA: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -11,23 +11,23 @@ const FinalCTA: React.FC = () => {
       <div className="absolute inset-0">
         {/* Exact color match with Results section end */}
         <div className="absolute inset-0 bg-[#000a17]"></div>
-        
+
         {/* Animated background elements */}
-        <motion.div 
+        <motion.div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[100px]"
-          animate={{ 
+          animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.4, 0.3],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/30 rounded-full blur-[80px]"
-          animate={{ 
+          animate={{
             scale: [1, 1.1, 1],
             opacity: [0.2, 0.3, 0.2],
           }}
@@ -35,21 +35,22 @@ const FinalCTA: React.FC = () => {
             duration: 6,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 1
+            delay: 1,
           }}
         />
       </div>
 
       <div className="container mx-auto px-4 md:px-8">
-        <motion.div 
+        <motion.div
           className="relative max-w-5xl mx-auto p-12 md:p-16 rounded-[2.5rem] overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           style={{
-            background: 'linear-gradient(180deg, rgba(0, 127, 255, 0.2) 0%, rgba(0, 127, 255, 0.1) 100%)',
-            boxShadow: '0 25px 50px -12px rgba(0, 127, 255, 0.25)',
+            background:
+              "linear-gradient(180deg, rgba(0, 127, 255, 0.2) 0%, rgba(0, 127, 255, 0.1) 100%)",
+            boxShadow: "0 25px 50px -12px rgba(0, 127, 255, 0.25)",
           }}
         >
           {/* Content */}
@@ -61,18 +62,21 @@ const FinalCTA: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.1] mb-6">
-                <span className="text-white">Ready to Transform Your</span><br />
-                <span className="bg-gradient-to-r from-accent to-white bg-clip-text text-transparent">Client Management?</span>
+                <span className="text-white">Ready to Transform Your</span>
+                <br />
+                <span className="bg-gradient-to-r from-accent to-white bg-clip-text text-transparent">
+                  Client Management?
+                </span>
               </h2>
               <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-                Book a personalized demo to see how Kayse can help your firm 
-                client attrition while freeing your team from routine  
+                Book a personalized demo to see how Kayse can help your firm
+                client attrition while freeing your team from routine
                 communication tasks.
               </p>
             </motion.div>
 
             <motion.a
-              href="/demo-request"
+              href="/demo"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold rounded-2xl
                        bg-gradient-to-r from-blue-500 to-blue-600
                        shadow-[0_8px_32px_rgba(59,130,246,0.3)]
