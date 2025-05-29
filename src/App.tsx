@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -22,16 +23,29 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Demo from "./pages/Demo";
 
+const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+
+  return (
+    <div
+      className="min-h-screen bg-primary font-manrope"
+      key={location.pathname}
+    >
+      {children}
+    </div>
+  );
+};
+
 function App() {
   return (
     <Router basename="/">
-      <div className="min-h-screen bg-primary overflow-x-hidden">
-        <div className="fixed inset-0 bg-primary -z-50" />
+      <div className="relative">
+        <div className="fixed inset-0 bg-primary" />
         <Routes>
           <Route
             path="/"
             element={
-              <div className="font-manrope">
+              <PageWrapper>
                 <Navbar />
                 <main>
                   <HeroSection />
@@ -42,17 +56,73 @@ function App() {
                   <FinalCTA />
                 </main>
                 <Footer />
-              </div>
+              </PageWrapper>
             }
           />
-          <Route path="/solutions" element={<Solutions />} />
-          <Route path="/practice-areas" element={<PracticeAreas />} />
-          <Route path="/integrations" element={<Integrations />} />
-          <Route path="/why-kayse" element={<WhyKayse />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/demo" element={<Demo />} />
+          <Route
+            path="/solutions"
+            element={
+              <PageWrapper>
+                <Solutions />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/practice-areas"
+            element={
+              <PageWrapper>
+                <PracticeAreas />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/integrations"
+            element={
+              <PageWrapper>
+                <Integrations />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/why-kayse"
+            element={
+              <PageWrapper>
+                <WhyKayse />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/resources"
+            element={
+              <PageWrapper>
+                <Resources />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PageWrapper>
+                <Contact />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <PageWrapper>
+                <FAQ />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/demo"
+            element={
+              <PageWrapper>
+                <Demo />
+              </PageWrapper>
+            }
+          />
           <Route path="*" element={<Navigate to="/\" replace />} />
         </Routes>
       </div>
