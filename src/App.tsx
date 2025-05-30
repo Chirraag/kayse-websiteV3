@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
@@ -23,110 +22,70 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import Demo from "./pages/Demo";
 
-const PageWrapper = ({ children }: { children: React.ReactNode }) => {
-  const location = useLocation();
-
-  return (
-    <div
-      className="min-h-screen bg-primary font-manrope"
-      key={location.pathname}
-    >
-      {children}
-    </div>
-  );
-};
-
 function App() {
+  // Ensure background is always set
+  useEffect(() => {
+    document.body.style.backgroundColor = "#000a17";
+    document.documentElement.style.backgroundColor = "#000a17";
+
+    // Create a style element to override any other styles
+    const style = document.createElement("style");
+    style.textContent = `
+      html, body, #root {
+        background-color: #000a17 !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
-    <Router basename="/">
-      <div className="relative">
-        <div className="fixed inset-0 bg-primary" />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PageWrapper>
-                <Navbar />
-                <main>
-                  <HeroSection />
-                  <ProblemStatement />
-                  <SolutionOverview />
-                  <ObjectionAddressing />
-                  <ResultsSection />
-                  <FinalCTA />
-                </main>
-                <Footer />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/solutions"
-            element={
-              <PageWrapper>
-                <Solutions />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/practice-areas"
-            element={
-              <PageWrapper>
-                <PracticeAreas />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/integrations"
-            element={
-              <PageWrapper>
-                <Integrations />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/why-kayse"
-            element={
-              <PageWrapper>
-                <WhyKayse />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/resources"
-            element={
-              <PageWrapper>
-                <Resources />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <PageWrapper>
-                <Contact />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/faq"
-            element={
-              <PageWrapper>
-                <FAQ />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/demo"
-            element={
-              <PageWrapper>
-                <Demo />
-              </PageWrapper>
-            }
-          />
-          <Route path="*" element={<Navigate to="/\" replace />} />
-        </Routes>
+    <>
+      {/* Multiple layers of background protection */}
+      <div
+        className="fixed inset-0 bg-primary -z-50"
+        style={{ backgroundColor: "#000a17" }}
+      />
+
+      <div
+        className="min-h-screen bg-primary font-manrope"
+        style={{ backgroundColor: "#000a17" }}
+      >
+        <Router basename="/">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <main>
+                    <HeroSection />
+                    <ProblemStatement />
+                    <SolutionOverview />
+                    <ObjectionAddressing />
+                    <ResultsSection />
+                    <FinalCTA />
+                  </main>
+                  <Footer />
+                </>
+              }
+            />
+            <Route path="/solutions" element={<Solutions />} />
+            <Route path="/practice-areas" element={<PracticeAreas />} />
+            <Route path="/integrations" element={<Integrations />} />
+            <Route path="/why-kayse" element={<WhyKayse />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/demo" element={<Demo />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Router>
       </div>
-    </Router>
+    </>
   );
 }
 

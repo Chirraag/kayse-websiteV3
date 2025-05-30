@@ -4,6 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* IMMEDIATE BACKGROUND - HIGHEST PRIORITY */
+html {
+  background-color: #000a17 !important;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000a17 !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Manrope', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+#root {
+  background-color: #000a17 !important;
+  min-height: 100vh;
+}
+
+/* Prevent any white flashes during route changes */
+* {
+  box-sizing: border-box;
+}
+
+/* Route loading state */
+.route-loading {
+  background-color: #000a17 !important;
+  min-height: 100vh;
+}
+
 @layer base {
 
   h1,
@@ -26,13 +59,6 @@
   --glass-bg: rgba(0, 127, 255, 0.05);
   --glass-border: rgba(0, 127, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-body {
-  font-family: 'Manrope', sans-serif;
-  background-color: var(--primary);
-  color: var(--text);
-  overflow-x: hidden;
 }
 
 .text-gradient-modern {
