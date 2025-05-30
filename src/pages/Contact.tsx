@@ -10,10 +10,8 @@ const Contact: React.FC = () => {
     name: "",
     email: "",
     phone: "",
-    company: "",
+    interest: "",
     message: "",
-    hearAbout: "",
-    interestedIn: "",
   });
 
   const handleChange = (
@@ -29,15 +27,13 @@ const Contact: React.FC = () => {
     e.preventDefault();
     // In a real implementation, this would send the form data to a server
     console.log("Form submitted:", formData);
-    alert("Thank you for your message! We will get back to you shortly.");
+    alert("Thank you for your message! Our team will contact you shortly.");
     setFormData({
       name: "",
       email: "",
       phone: "",
-      company: "",
+      interest: "",
       message: "",
-      hearAbout: "",
-      interestedIn: "",
     });
   };
 
@@ -45,14 +41,12 @@ const Contact: React.FC = () => {
     <div className="min-h-screen bg-primary font-manrope">
       <Navbar />
       <main>
-        {/* ── Hero Section ─────────────────────────────────────────────── */}
+        {/* Hero Section */}
         <section className="relative py-24 sm:py-32 overflow-hidden">
-          {/* Background layers */}
           <div className="absolute inset-0 -z-10 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-black via-[#000814] via-30% to-[#000a17] to-100%" />
             <div className="absolute w-full h-full bg-[radial-gradient(ellipse_at_center,_rgba(0,127,255,0.15)_0%,_transparent_70%)]" />
 
-            {/* Animated blobs */}
             <motion.div
               className="absolute top-20 left-10 w-20 xs:w-24 sm:w-32 md:w-48 lg:w-64 h-20 xs:h-24 sm:h-32 md:h-48 lg:h-64 bg-[#0066ff]/10 rounded-[40%] blur-[100px]"
               animate={{
@@ -77,13 +71,11 @@ const Contact: React.FC = () => {
               }}
             />
 
-            {/* Halo */}
             <div className="absolute inset-0 opacity-40">
               <CallHalo isRinging={false} isCallActive={false} />
             </div>
           </div>
 
-          {/* Foreground content */}
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <motion.h1
@@ -128,7 +120,6 @@ const Contact: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-[#000a17] from-0% via-[#001020] via-50% to-[#001428] to-100%"></div>
             <div className="absolute w-full h-full bg-[radial-gradient(ellipse_at_center,_rgba(0,127,255,0.1)_0%,_rgba(0,127,255,0.05)_30%,_transparent_60%)]"></div>
 
-            {/* CallHalo component */}
             <div className="absolute inset-0 opacity-20">
               <CallHalo isRinging={false} isCallActive={false} />
             </div>
@@ -177,13 +168,13 @@ const Contact: React.FC = () => {
                 <form
                   onSubmit={handleSubmit}
                   className="relative p-8 rounded-[2rem] overflow-hidden backdrop-blur-xl
-                                                        bg-gradient-to-br from-white/10 via-white/[0.07] to-transparent
-                                                        border border-white/10
-                                                        shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(0,0,0,0.1)]
-                                                        transform-gpu"
+                          bg-gradient-to-br from-white/10 via-white/[0.07] to-transparent
+                          border border-white/10
+                          shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(0,0,0,0.1)]
+                          transform-gpu"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="md:col-span-2">
+                  <div className="grid grid-cols-1 gap-6 mb-6">
+                    <div>
                       <label
                         htmlFor="name"
                         className="block text-white/80 mb-2 text-sm"
@@ -204,33 +195,13 @@ const Contact: React.FC = () => {
                         placeholder="John Doe"
                       />
                     </div>
-                    <div className="md:col-span-2">
-                      <label
-                        htmlFor="company"
-                        className="block text-white/80 mb-2 text-sm"
-                      >
-                        Law Firm Name*
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl backdrop-blur-sm
-                                 bg-white/10 border border-white/20 text-white placeholder-white/50
-                                 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50
-                                 transition-all duration-300"
-                        placeholder="Doe & Associates"
-                      />
-                    </div>
+
                     <div>
                       <label
                         htmlFor="email"
                         className="block text-white/80 mb-2 text-sm"
                       >
-                        Email Address*
+                        Work Email*
                       </label>
                       <input
                         type="email"
@@ -246,6 +217,7 @@ const Contact: React.FC = () => {
                         placeholder="john@example.com"
                       />
                     </div>
+
                     <div>
                       <label
                         htmlFor="phone"
@@ -267,72 +239,18 @@ const Contact: React.FC = () => {
                         placeholder="(123) 456-7890"
                       />
                     </div>
+
                     <div>
                       <label
-                        htmlFor="hearAbout"
-                        className="block text-white/80 mb-2 text-sm"
-                      >
-                        How Did You Hear About Us?
-                      </label>
-                      <select
-                        id="hearAbout"
-                        name="hearAbout"
-                        value={formData.hearAbout}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl backdrop-blur-sm
-                                 bg-white/10 border border-white/20 text-white
-                                 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent/50
-                                 transition-all duration-300 appearance-none cursor-pointer"
-                      >
-                        <option value="" className="bg-primary text-white">
-                          Select an option
-                        </option>
-                        <option
-                          value="Google"
-                          className="bg-primary text-white"
-                        >
-                          Google Search
-                        </option>
-                        <option
-                          value="Social Media"
-                          className="bg-primary text-white"
-                        >
-                          Social Media
-                        </option>
-                        <option
-                          value="Referral"
-                          className="bg-primary text-white"
-                        >
-                          Referral from a Colleague
-                        </option>
-                        <option
-                          value="Conference"
-                          className="bg-primary text-white"
-                        >
-                          Conference or Event
-                        </option>
-                        <option
-                          value="Legal Publication"
-                          className="bg-primary text-white"
-                        >
-                          Legal Publication
-                        </option>
-                        <option value="Other" className="bg-primary text-white">
-                          Other
-                        </option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="interestedIn"
+                        htmlFor="interest"
                         className="block text-white/80 mb-2 text-sm"
                       >
                         What Are You Interested In?*
                       </label>
                       <select
-                        id="interestedIn"
-                        name="interestedIn"
-                        value={formData.interestedIn}
+                        id="interest"
+                        name="interest"
+                        value={formData.interest}
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-xl backdrop-blur-sm
@@ -344,51 +262,48 @@ const Contact: React.FC = () => {
                           Select an option
                         </option>
                         <option
-                          value="Product Demo"
-                          className="bg-primary text-white"
-                        >
-                          Product Demo
-                        </option>
-                        <option
-                          value="Pricing Information"
-                          className="bg-primary text-white"
-                        >
-                          Pricing Information
-                        </option>
-                        <option
-                          value="Partnership"
-                          className="bg-primary text-white"
-                        >
-                          Partnership Opportunities
-                        </option>
-                        <option
-                          value="Technical Support"
-                          className="bg-primary text-white"
-                        >
-                          Technical Support
-                        </option>
-                        <option
                           value="General Inquiry"
                           className="bg-primary text-white"
                         >
                           General Inquiry
                         </option>
+                        <option
+                          value="Partnership"
+                          className="bg-primary text-white"
+                        >
+                          Partnership
+                        </option>
+                        <option
+                          value="Support"
+                          className="bg-primary text-white"
+                        >
+                          Support
+                        </option>
+                        <option
+                          value="Integration"
+                          className="bg-primary text-white"
+                        >
+                          Integration
+                        </option>
+                        <option value="Media" className="bg-primary text-white">
+                          Media
+                        </option>
                       </select>
                     </div>
                   </div>
+
                   <div className="mb-6">
                     <label
                       htmlFor="message"
                       className="block text-white/80 mb-2 text-sm"
                     >
-                      Your Message*
+                      Message/Details
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
                       rows={5}
                       className="w-full px-4 py-3 rounded-xl backdrop-blur-sm
                                bg-white/10 border border-white/20 text-white placeholder-white/50
@@ -397,6 +312,7 @@ const Contact: React.FC = () => {
                       placeholder="Tell us how we can help you..."
                     ></textarea>
                   </div>
+
                   <button
                     type="submit"
                     className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-2xl
@@ -407,7 +323,9 @@ const Contact: React.FC = () => {
                              group relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative text-white">Send Message</span>
+                    <span className="relative text-white">
+                      Get In Touch With The Team
+                    </span>
                     <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform duration-200 relative" />
                   </button>
                 </form>
@@ -467,7 +385,7 @@ const Contact: React.FC = () => {
               </motion.a>
 
               <motion.a
-                href="/faq"
+                href="/contact"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -480,15 +398,17 @@ const Contact: React.FC = () => {
                          hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_30px_rgba(0,0,0,0.2)]
                          hover:scale-[1.02] text-center"
               >
-                <h3 className="text-xl font-semibold mb-4 text-white">FAQ</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">
+                  Support
+                </h3>
                 <div className="flex items-center justify-center text-accent group-hover:text-white transition-colors duration-300">
-                  <span className="mr-2">View FAQ</span>
+                  <span className="mr-2">Contact Support</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </div>
               </motion.a>
 
               <motion.a
-                href="/resources"
+                href="/contact"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -502,10 +422,10 @@ const Contact: React.FC = () => {
                          hover:scale-[1.02] text-center"
               >
                 <h3 className="text-xl font-semibold mb-4 text-white">
-                  Resources
+                  Partnership Inquiries
                 </h3>
                 <div className="flex items-center justify-center text-accent group-hover:text-white transition-colors duration-300">
-                  <span className="mr-2">Browse Resources</span>
+                  <span className="mr-2">Discuss Partnership</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </div>
               </motion.a>

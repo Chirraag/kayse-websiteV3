@@ -54,9 +54,6 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div>
             <img src="/kayse-v2.png" alt="Kayse" className="h-8 mb-6" />
-            <p className="text-white/70 mb-0 md:mb-6 opacity-0">
-              The AI Client Retention Platform Built for High-Volume Law Firms
-            </p>
             <div className="flex space-x-4">
               <a
                 href="https://www.linkedin.com/company/kayse/"
@@ -267,8 +264,9 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/50 text-sm">
-              © 2025 Kayse AI. All rights reserved.
+            <p className="text-white/50 text-sm text-center md:text-left">
+              © 2025 Kayse.ai | 1400 Old Country Rd, Suite 305, Westbury, NY
+              11590
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <a
