@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
           </a>
 
           <a
-            href="/login"
+            href="https://app.kayse.ai"
             className="px-6 py-2 rounded-xl bg-white text-blue-600 font-semibold 
                     shadow-lg hover:shadow-xl 
                     transform hover:scale-[1.02] transition-all duration-300 whitespace-nowrap"
@@ -212,7 +212,7 @@ const Navbar: React.FC = () => {
               </a>
 
               <a
-                href="/login"
+                href="https://app.kayse.ai"
                 className="block px-4 py-3 rounded-lg bg-white text-blue-600 font-semibold text-base sm:text-lg text-center my-2"
               >
                 Login

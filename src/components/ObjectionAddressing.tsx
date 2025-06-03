@@ -83,7 +83,7 @@ const ObjectionAddressing: React.FC = () => {
           </h2>
         </div>
 
-        {/* UPDATED: Much lighter, brighter content card */}
+        {/* ENHANCED: Much lighter, brighter content card with better image/text balance */}
         <motion.div
           className="relative p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-xl shadow-2xl"
           style={{
@@ -103,7 +103,7 @@ const ObjectionAddressing: React.FC = () => {
               marginBottom: 4,
             }}
           >
-            {/* UPDATED: Tabs with better contrast for light background */}
+            {/* ENHANCED: Tabs with better contrast for light background */}
             <Tabs
               value={value}
               onChange={handleChange}
@@ -162,11 +162,12 @@ const ObjectionAddressing: React.FC = () => {
           </Box>
 
           <TabPanel value={value} index={0}>
-            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-start lg:items-center">
-              <div className="lg:max-w-xl">
-                <div className="relative mb-6 rounded-[2rem] overflow-hidden group">
+            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center">
+              {/* Image Section - Full height to match text */}
+              <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0 flex items-center">
+                <div className="relative mb-6 lg:mb-0 rounded-[2rem] overflow-hidden group w-full">
                   <motion.img
-                    src="/lap-2.png"
+                    src="/ipad5.png"
                     alt="CRM Solution"
                     className="w-full h-auto rounded-[2rem] shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -175,36 +176,59 @@ const ObjectionAddressing: React.FC = () => {
                   />
                 </div>
               </div>
-              <div>
-                {/* UPDATED: Lighter content boxes */}
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-6 text-blue-900">
+              {/* Text Section - Enhanced with better spacing and more content */}
+              <div className="w-full lg:w-1/2 flex items-center">
+                <div className="w-full px-2 lg:px-4">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                     "I already call, text, and email my clients"
                   </h3>
-                  <p className="text-base sm:text-lg text-gray-700 mb-6 leading-relaxed">
-                    The challenge isn't whether you're communicating, but
-                    whether your team can maintain consistent, personalized
-                    outreach when handling hundreds or thousands of clients
-                    simultaneously over extended timelines.
-                  </p>
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                    Our AI-powered retention platform doesn't replace your
-                    existing channels—it amplifies them. Rather than your staff
-                    members spending 12-15 hours per week each on routine
-                    updates, our human-like voice AI handles these
-                    automatically, freeing your team for higher-value tasks.
-                  </p>
+                  <div className="space-y-5">
+                    <p className="text-base text-gray-700 leading-relaxed">
+                      The challenge isn't whether you're communicating, but
+                      whether your team can maintain consistent, personalized
+                      outreach when handling hundreds or thousands of clients
+                      simultaneously over extended timelines.
+                    </p>
+                    <div className="bg-blue-50/70 p-4 rounded-xl border border-blue-200/30">
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        <strong className="text-blue-800">
+                          Key Challenge:
+                        </strong>{" "}
+                        Manual communication methods work well for small
+                        caseloads but become unsustainable as your practice
+                        grows. Quality and consistency suffer when staff are
+                        stretched across hundreds of cases.
+                      </p>
+                    </div>
+                    <p className="text-base text-gray-700 leading-relaxed">
+                      Our AI-powered retention platform doesn't replace your
+                      existing channels—it amplifies them. Rather than your
+                      staff members spending 12-15 hours per week each on
+                      routine updates, our human-like voice AI handles these
+                      automatically, freeing your team for higher-value tasks.
+                    </p>
+                    <div className="bg-green-50/70 p-4 rounded-xl border border-green-200/30">
+                      <p className="text-sm text-green-700 leading-relaxed">
+                        <strong className="text-green-800">
+                          The Solution:
+                        </strong>{" "}
+                        Consistent, personalized communication at scale without
+                        burning out your team.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="relative mb-6 rounded-2xl overflow-hidden group">
+            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center">
+              {/* Image Section - Full height to match text */}
+              <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0 flex items-center">
+                <div className="relative mb-6 lg:mb-0 rounded-2xl overflow-hidden group w-full">
                   <motion.img
-                    src="/lap-1.png"
+                    src="/ipad2.png"
                     alt="Generic CRM Solution"
                     className="w-full h-auto rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -213,36 +237,59 @@ const ObjectionAddressing: React.FC = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-900">
+              {/* Text Section - Enhanced */}
+              <div className="w-full lg:w-1/2 flex items-center">
+                <div className="w-full px-2 lg:px-4">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                     "I already have a CRM and send newsletters"
                   </h3>
-                  <p className="text-gray-700 mb-6 leading-relaxed">
-                    While newsletters are valuable for general updates, they
-                    don't address the individual client's need for personalized
-                    case status information or emotional reassurance during
-                    lengthy proceedings.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    Kayse enhances your CRM and other apps by adding
-                    intelligent, automated 1:1 communications that respond to
-                    each client's specific case status and emotional needs—with
-                    sentiment analysis that continuously monitors communication
-                    patterns for signs of frustration, confusion, or
-                    disengagement that typically precede client attrition.
-                  </p>
+                  <div className="space-y-5">
+                    <p className="text-gray-700 leading-relaxed">
+                      While newsletters are valuable for general updates, they
+                      don't address the individual client's need for
+                      personalized case status information or emotional
+                      reassurance during lengthy proceedings.
+                    </p>
+                    <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200/30">
+                      <p className="text-sm text-amber-700 leading-relaxed">
+                        <strong className="text-amber-800">The Gap:</strong>{" "}
+                        Generic newsletters have low engagement rates (typically
+                        under 25%) because they don't speak to individual client
+                        concerns or provide case-specific updates.
+                      </p>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">
+                      Kayse enhances your CRM and other apps by adding
+                      intelligent, automated 1:1 communications that respond to
+                      each client's specific case status and emotional
+                      needs—with sentiment analysis that continuously monitors
+                      communication patterns for signs of frustration,
+                      confusion, or disengagement that typically precede client
+                      attrition.
+                    </p>
+                    <div className="bg-blue-50/70 p-4 rounded-xl border border-blue-200/30">
+                      <p className="text-sm text-blue-700 leading-relaxed">
+                        <strong className="text-blue-800">
+                          Kayse Advantage:
+                        </strong>
+                        70%+ portal adoption rate vs. 23% for generic solutions,
+                        achieved through personalized, case-specific
+                        communication.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="relative mb-6 rounded-2xl overflow-hidden group">
+            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center">
+              {/* Image Section - Full height to match text */}
+              <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0 flex items-center">
+                <div className="relative mb-6 lg:mb-0 rounded-2xl overflow-hidden group w-full">
                   <motion.img
-                    src="/lap-3.png"
+                    src="/ipad3.png"
                     alt="Salesforce Solution"
                     className="w-full h-auto rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                     initial={{ opacity: 0, scale: 1.1 }}
@@ -251,46 +298,77 @@ const ObjectionAddressing: React.FC = () => {
                   />
                 </div>
               </div>
-              <div>
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-900">
+              {/* Text Section - Enhanced */}
+              <div className="w-full lg:w-1/2 flex items-center">
+                <div className="w-full px-2 lg:px-4">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                     "I already have Salesforce"
                   </h3>
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    Unlike Salesforce, which is designed for general business
-                    and sales environments, our solution is purpose-built for
-                    legal client retention:
-                  </p>
-                  <ul className="mt-4 space-y-2 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1.5 text-blue-500">•</span>
-                      <span>
-                        Our voice AI is specifically trained on legal client
-                        conversations
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1.5 text-blue-500">•</span>
-                      <span>
-                        Our sentiment analysis recognizes the unique emotional
-                        patterns that precede client dissatisfaction in long
-                        litigation processes
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1.5 text-blue-500">•</span>
-                      <span>
-                        Our mobile client portal achieves 70%+ adoption rates
-                        because it's designed specifically for clients who need
-                        simplified case tracking
-                      </span>
-                    </li>
-                  </ul>
-                  <p className="mt-4 text-gray-700 leading-relaxed">
-                    Plus, unlike Salesforce's implementation costs that aren't
-                    recoverable, Kayse is billable as a case expense to each
-                    client file for injury firms.
-                  </p>
+                  <div className="space-y-5">
+                    <p className="text-gray-700 leading-relaxed">
+                      Unlike Salesforce, which is designed for general business
+                      and sales environments, our solution is purpose-built for
+                      legal client retention:
+                    </p>
+
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3 p-3 bg-blue-50/50 rounded-lg border border-blue-200/30">
+                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-blue-900">
+                            Legal AI Training
+                          </p>
+                          <p className="text-xs text-blue-700 mt-1">
+                            Our voice AI is specifically trained on legal client
+                            conversations and understands discovery,
+                            depositions, settlement negotiations, and trial
+                            timelines.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3 p-3 bg-green-50/50 rounded-lg border border-green-200/30">
+                        <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-green-900">
+                            Legal Sentiment Analysis
+                          </p>
+                          <p className="text-xs text-green-700 mt-1">
+                            Our sentiment analysis recognizes the unique
+                            emotional patterns that precede client
+                            dissatisfaction in long litigation processes.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3 p-3 bg-purple-50/50 rounded-lg border border-purple-200/30">
+                        <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-purple-900">
+                            Purpose-Built Portal
+                          </p>
+                          <p className="text-xs text-purple-700 mt-1">
+                            Our mobile client portal achieves 70%+ adoption
+                            rates because it's designed specifically for clients
+                            who need simplified case tracking, not complex
+                            business processes.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-green-50/70 p-4 rounded-xl border border-green-200/30">
+                      <p className="text-sm text-green-700 leading-relaxed">
+                        <strong className="text-green-800">
+                          Cost Advantage:
+                        </strong>{" "}
+                        Unlike Salesforce's implementation costs that aren't
+                        recoverable, Kayse is billable as a case expense to each
+                        client file for injury firms—making it cost-neutral in
+                        many cases.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

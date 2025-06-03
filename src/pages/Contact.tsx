@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Phone, Clock } from "lucide-react";
+import { ArrowRight, Phone, Clock, CheckCircle2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CallHalo from "../components/CallHalo";
@@ -14,6 +14,13 @@ const Contact: React.FC = () => {
     message: "",
   });
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    message: "",
+    isSuccess: true,
+  });
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -23,22 +30,150 @@ const Contact: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would send the form data to a server
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! Our team will contact you shortly.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      interest: "",
-      message: "",
-    });
+
+    try {
+      const response = await fetch(
+        "https://kayse-backend.replit.app/api/zapier/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            full_name: formData.name,
+            work_email: formData.email,
+            phone_number: formData.phone,
+            interest: formData.interest,
+            message: formData.message,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        setModalContent({
+          title: "Message Sent Successfully!",
+          message:
+            "Thank you for your message! Our team will contact you shortly.",
+          isSuccess: true,
+        });
+        setShowModal(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          interest: "",
+          message: "",
+        });
+      } else {
+        setModalContent({
+          title: "Submission Failed",
+          message: "There was an error submitting your form. Please try again.",
+          isSuccess: false,
+        });
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setModalContent({
+        title: "Connection Error",
+        message:
+          "Unable to connect to our servers. Please check your internet connection and try again.",
+        isSuccess: false,
+      });
+      setShowModal(true);
+    }
   };
 
   return (
     <div className="min-h-screen bg-primary font-manrope">
+      {/* Modal */}
+      {showModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowModal(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+
+          {/* Modal Content */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="relative max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="relative p-8 rounded-[2rem] overflow-hidden backdrop-blur-xl
+                          bg-gradient-to-br from-white/10 via-white/[0.07] to-transparent
+                          border border-white/20
+                          shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_40px_rgba(0,127,255,0.3)]"
+            >
+              {/* Success/Error Icon */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className={`rounded-full h-20 w-20 flex items-center justify-center
+                               ${
+                                 modalContent.isSuccess
+                                   ? "bg-gradient-to-br from-green-500/20 to-green-600/10 border-green-500/30"
+                                   : "bg-gradient-to-br from-red-500/20 to-red-600/10 border-red-500/30"
+                               }
+                               border shadow-lg`}
+                >
+                  {modalContent.isSuccess ? (
+                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  ) : (
+                    <svg
+                      className="w-10 h-10 text-red-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl font-semibold text-white text-center mb-4">
+                {modalContent.title}
+              </h3>
+
+              {/* Message */}
+              <p className="text-white/80 text-center mb-8 leading-relaxed">
+                {modalContent.message}
+              </p>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold rounded-xl
+                         bg-gradient-to-r from-blue-500 to-blue-600
+                         shadow-[0_8px_32px_rgba(59,130,246,0.3)]
+                         hover:shadow-[0_12px_40px_rgba(59,130,246,0.4)]
+                         transform hover:scale-[1.02] transition-all duration-300
+                         group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative text-white">Got it</span>
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
       <Navbar />
       <main>
         {/* Hero Section */}

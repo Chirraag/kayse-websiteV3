@@ -10,6 +10,8 @@ import {
   MessageCircle,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -25,24 +27,76 @@ const Demo: React.FC = () => {
   });
 
   const [expandedFaq, setExpandedFaq] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    message: "",
+    isSuccess: true,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    alert(
-      "Thank you for requesting a demo! Our team will contact you shortly to confirm your appointment.",
-    );
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      practiceArea: "",
-      challenge: "",
-    });
+  const handleSubmit = async () => {
+    try {
+      // Map form data to API expected format
+      const apiData = {
+        full_name: formData.name,
+        work_email: formData.email,
+        phone_number: "", // Note: Phone number not in current form, sending empty string
+        law_firm_name: formData.company,
+        practice_area: formData.practiceArea,
+        challenge: formData.challenge,
+      };
+
+      const response = await fetch(
+        "https://kayse-backend.replit.app/api/zapier/demo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiData),
+        },
+      );
+
+      if (response.ok) {
+        setModalContent({
+          title: "Demo Request Submitted!",
+          message:
+            "Thank you for your interest in Kayse. Our team will contact you within 24 hours to schedule your personalized demo.",
+          isSuccess: true,
+        });
+        setShowModal(true);
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          practiceArea: "",
+          challenge: "",
+        });
+      } else {
+        setModalContent({
+          title: "Submission Failed",
+          message:
+            "We encountered an error processing your request. Please try again or contact us directly at support@kayse.ai",
+          isSuccess: false,
+        });
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setModalContent({
+        title: "Connection Error",
+        message:
+          "Unable to connect to our servers. Please check your internet connection and try again.",
+        isSuccess: false,
+      });
+      setShowModal(true);
+    }
   };
 
   const faqs = [
@@ -85,6 +139,17 @@ const Demo: React.FC = () => {
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
+  // Navigation functions for carousel
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
+  };
+
   // Auto-rotate testimonials
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -93,8 +158,108 @@ const Demo: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        prevTestimonial();
+      } else if (event.key === "ArrowRight") {
+        nextTestimonial();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="min-h-screen bg-primary font-manrope">
+      {/* Modal */}
+      {showModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowModal(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+
+          {/* Modal Content */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="relative max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="relative p-8 rounded-[2rem] overflow-hidden backdrop-blur-xl
+                          bg-gradient-to-br from-white/10 via-white/[0.07] to-transparent
+                          border border-white/20
+                          shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_40px_rgba(0,127,255,0.3)]"
+            >
+              {/* Success/Error Icon */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className={`rounded-full h-20 w-20 flex items-center justify-center
+                               ${
+                                 modalContent.isSuccess
+                                   ? "bg-gradient-to-br from-green-500/20 to-green-600/10 border-green-500/30"
+                                   : "bg-gradient-to-br from-red-500/20 to-red-600/10 border-red-500/30"
+                               }
+                               border shadow-lg`}
+                >
+                  {modalContent.isSuccess ? (
+                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  ) : (
+                    <svg
+                      className="w-10 h-10 text-red-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl font-semibold text-white text-center mb-4">
+                {modalContent.title}
+              </h3>
+
+              {/* Message */}
+              <p className="text-white/80 text-center mb-8 leading-relaxed">
+                {modalContent.message}
+              </p>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold rounded-xl
+                         bg-gradient-to-r from-blue-500 to-blue-600
+                         shadow-[0_8px_32px_rgba(59,130,246,0.3)]
+                         hover:shadow-[0_12px_40px_rgba(59,130,246,0.4)]
+                         transform hover:scale-[1.02] transition-all duration-300
+                         group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative text-white">Got it</span>
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
       <Navbar />
       <main>
         {/* ── Hero Section ─────────────────────────────────────────────── */}
@@ -548,6 +713,38 @@ const Demo: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               {/* Testimonial Carousel */}
               <div className="relative">
+                {/* Left Arrow */}
+                <button
+                  onClick={prevTestimonial}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 xl:-translate-x-12 z-10
+                           w-12 h-12 rounded-full
+                           bg-gradient-to-br from-white/20 via-white/10 to-transparent
+                           border border-white/20
+                           shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(0,0,0,0.1)]
+                           hover:from-white/30 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_30px_rgba(0,127,255,0.2)]
+                           backdrop-blur-xl transition-all duration-300
+                           group flex items-center justify-center"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white group-hover:text-accent transition-colors duration-200" />
+                </button>
+
+                {/* Right Arrow */}
+                <button
+                  onClick={nextTestimonial}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 xl:translate-x-12 z-10
+                           w-12 h-12 rounded-full
+                           bg-gradient-to-br from-white/20 via-white/10 to-transparent
+                           border border-white/20
+                           shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(0,0,0,0.1)]
+                           hover:from-white/30 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_30px_rgba(0,127,255,0.2)]
+                           backdrop-blur-xl transition-all duration-300
+                           group flex items-center justify-center"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-6 h-6 text-white group-hover:text-accent transition-colors duration-200" />
+                </button>
+
                 <motion.div
                   key={currentTestimonial}
                   initial={{ opacity: 0, x: 20 }}
@@ -692,9 +889,11 @@ const Demo: React.FC = () => {
                 viewport={{ once: true }}
                 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-8 tracking-[-0.03em] leading-[1.1]"
               >
-                <span className="text-white">Ready to Transform Your</span>
+                <span className="text-white block">
+                  Ready to Transform Your
+                </span>
                 <span
-                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent pl-2"
+                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent"
                   style={{
                     backgroundSize: "200% 100%",
                     backgroundPosition: "60% 0",

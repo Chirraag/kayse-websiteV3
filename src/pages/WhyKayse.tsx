@@ -200,9 +200,9 @@ const WhyKayse: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.1] mb-6"
               >
-                <span className="text-white">Purpose-Built for</span>
+                <span className="text-white block">Purpose-Built for</span>
                 <span
-                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent pl-2"
+                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent"
                   style={{
                     backgroundSize: "200% 100%",
                     backgroundPosition: "60% 0",
@@ -278,7 +278,7 @@ const WhyKayse: React.FC = () => {
               </p>
             </div>
 
-            {/* KEPT: Light, bright content card as specified */}
+            {/* FIXED: Enhanced layout with better image/text balance */}
             <motion.div
               className="relative p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl overflow-hidden backdrop-blur-xl shadow-2xl"
               style={{
@@ -331,60 +331,66 @@ const WhyKayse: React.FC = () => {
               </div>
 
               <TabPanel value={value} index={0}>
-                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-start lg:items-center">
-                  <div className="lg:max-w-xl">
-                    <div className="relative mb-6 rounded-[2rem] overflow-hidden group">
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+                  {/* Image Section - Fixed sizing */}
+                  <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0">
+                    <div className="relative mb-6 lg:mb-0 rounded-[2rem] overflow-hidden group">
                       <motion.img
-                        src="/lap-2.png"
+                        src="/ipad5.png"
                         alt="Traditional Communication Methods"
-                        className="w-full h-auto rounded-[2rem] shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
+                        className="w-full h-auto max-h-[400px] object-contain rounded-[2rem] shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
                       />
                     </div>
                   </div>
-                  <div>
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                      <h3 className="text-xl sm:text-2xl font-bold mb-6 text-blue-900">
+                  {/* Text Section - Enhanced with more content and better spacing */}
+                  <div className="w-full lg:w-1/2 flex items-center">
+                    <div className="w-full px-2 lg:px-4">
+                      <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                         Kayse vs. Traditional Communication Methods
                       </h3>
-                      <ul className="space-y-4">
+                      <ul className="space-y-5">
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Scale limitations of manual methods
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Manual calls and emails work for small caseloads
-                              but become unsustainable as your practice grows
+                              but become unsustainable as your practice grows.
+                              When managing hundreds of cases, consistency
+                              suffers.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Consistency challenges across large caseloads
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Maintaining consistent quality and frequency of
                               communication across hundreds of cases is nearly
-                              impossible manually
+                              impossible manually. Client experience varies
+                              significantly.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Staff time investment: 12-15 hours per week per
                               staff
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Your team spends valuable hours on routine updates
-                              that could be automated
+                              that could be automated, reducing time available
+                              for high-value legal work and strategy.
                             </p>
                           </div>
                         </li>
@@ -395,59 +401,65 @@ const WhyKayse: React.FC = () => {
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <div className="relative mb-6 rounded-2xl overflow-hidden group">
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+                  {/* Image Section - Fixed sizing */}
+                  <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0">
+                    <div className="relative mb-6 lg:mb-0 rounded-2xl overflow-hidden group">
                       <motion.img
-                        src="/lap-1.png"
+                        src="/ipad2.png"
                         alt="Generic CRM Solution"
-                        className="w-full h-auto rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
+                        className="w-full h-auto max-h-[400px] object-contain rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
                       />
                     </div>
                   </div>
-                  <div>
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                      <h3 className="text-2xl font-bold mb-4 text-blue-900">
+                  {/* Text Section - Enhanced */}
+                  <div className="w-full lg:w-1/2 flex items-center">
+                    <div className="w-full px-2 lg:px-4">
+                      <h3 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900">
                         Kayse vs. Generic CRMs with Newsletter
                       </h3>
-                      <ul className="space-y-4">
+                      <ul className="space-y-5">
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Personalized engagement vs. mass communication
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Kayse delivers individualized case updates, not
-                              generic newsletters
+                              generic newsletters. Each client receives tailored
+                              information about their specific case progress.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Legal timeline management
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Built specifically for the unique timelines and
-                              communication needs of legal cases
+                              communication needs of legal cases. Understands
+                              discovery phases, settlement negotiations, and
+                              trial prep.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Portal adoption rate: 23% for generic vs. 70%+ for
                               Kayse
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Our purpose-built portal achieves dramatically
-                              higher client engagement
+                              higher client engagement through intuitive design
+                              that legal clients actually want to use.
                             </p>
                           </div>
                         </li>
@@ -458,58 +470,64 @@ const WhyKayse: React.FC = () => {
               </TabPanel>
 
               <TabPanel value={value} index={2}>
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <div className="relative mb-6 rounded-2xl overflow-hidden group">
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+                  {/* Image Section - Fixed sizing */}
+                  <div className="w-full lg:w-1/2 lg:max-w-md mx-auto lg:mx-0">
+                    <div className="relative mb-6 lg:mb-0 rounded-2xl overflow-hidden group">
                       <motion.img
-                        src="/lap-3.png"
+                        src="/ipad3.png"
                         alt="Salesforce Solution"
-                        className="w-full h-auto rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
+                        className="w-full h-auto max-h-[400px] object-contain rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700"
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
                       />
                     </div>
                   </div>
-                  <div>
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm">
-                      <h3 className="text-2xl font-bold mb-4 text-blue-900">
+                  {/* Text Section - Enhanced */}
+                  <div className="w-full lg:w-1/2 flex items-center">
+                    <div className="p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-blue-50/90 to-white/95 border border-blue-200/50 backdrop-blur-sm w-full">
+                      <h3 className="text-xl sm:text-2xl font-bold mb-6 text-blue-900">
                         Kayse vs. Salesforce
                       </h3>
-                      <ul className="space-y-4">
+                      <ul className="space-y-5">
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Legal terminology and workflows
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Pre-configured for legal practice areas, not
-                              requiring extensive customization
+                              requiring extensive customization. Understands
+                              depositions, mediation, and settlement processes.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Implementation cost differences
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Weeks vs. months of implementation, with
-                              significantly lower total cost of ownership
+                              significantly lower total cost of ownership. No
+                              need for expensive consultants or custom
+                              development.
                             </p>
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-900">
+                            <strong className="text-gray-900 text-base">
                               Case expense recoverability advantage
                             </strong>
-                            <p className="text-gray-700 mt-1">
+                            <p className="text-gray-700 mt-2 text-sm leading-relaxed">
                               Unlike Salesforce, Kayse can be billed as a
-                              recoverable case expense for PI firms
+                              recoverable case expense for PI firms, making the
+                              investment cost-neutral in many cases.
                             </p>
                           </div>
                         </li>
@@ -694,9 +712,9 @@ const WhyKayse: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-[-0.03em] leading-[1.1]">
-                  <span className="text-white">Enterprise Solutions</span>
+                  <span className="text-white block">Enterprise Solutions</span>
                   <span
-                    className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent pl-2"
+                    className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent"
                     style={{
                       backgroundSize: "200% 100%",
                       backgroundPosition: "60% 0",

@@ -166,15 +166,7 @@ const Footer: React.FC = () => {
                   href="/demo"
                   className="text-white/70 hover:text-white transition-colors duration-300"
                 >
-                  Demo Request
-                </a>
-              </li>
-              <li className="md:hidden">
-                <a
-                  href="/blog"
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                >
-                  Blog
+                  Demo
                 </a>
               </li>
               <li className="md:hidden">
@@ -213,15 +205,7 @@ const Footer: React.FC = () => {
                   href="/demo"
                   className="text-white/70 hover:text-white transition-colors duration-300"
                 >
-                  Demo Request
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/blog"
-                  className="text-white/70 hover:text-white transition-colors duration-300"
-                >
-                  Blog
+                  Demo
                 </a>
               </li>
               <li>
@@ -280,12 +264,6 @@ const Footer: React.FC = () => {
                 className="text-white/50 hover:text-white text-sm transition-colors duration-300"
               >
                 Terms of Service
-              </a>
-              <a
-                href="/accessibility"
-                className="text-white/50 hover:text-white text-sm transition-colors duration-300"
-              >
-                Accessibility
               </a>
             </div>
           </div>

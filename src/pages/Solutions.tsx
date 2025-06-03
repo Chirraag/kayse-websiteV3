@@ -291,7 +291,7 @@ const Solutions: React.FC = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl group-hover:from-accent/30 transition-all duration-500"></div>
                 <img
-                  src="/lap-1.png"
+                  src="/ipad1.png"
                   alt="Sentiment Analysis Dashboard"
                   className="relative w-full h-auto rounded-3xl shadow-2xl transform group-hover:scale-[1.02] transition-all duration-500"
                 />
@@ -525,11 +525,11 @@ const Solutions: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl group-hover:from-accent/30 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-transparent rounded-3xl blur-3xl scale-95 opacity-50 group-hover:from-accent/30 group-hover:scale-100 group-hover:opacity-60 transition-all duration-500"></div>
                 <img
                   src="/phone-2.png"
                   alt="Client Portal App"
-                  className="relative w-full h-auto rounded-3xl shadow-2xl transform group-hover:scale-[1.02] transition-all duration-500"
+                  className="relative w-full h-auto rounded-3xl transform group-hover:scale-[1.02] transition-all duration-500"
                 />
               </motion.div>
             </div>

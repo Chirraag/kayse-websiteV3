@@ -362,7 +362,7 @@ const Integrations: React.FC = () => {
                 className="relative group"
               >
                 <img
-                  src="/lap-1.png"
+                  src="/ipad2.png"
                   alt="CRM Integration"
                   className="w-full h-auto transform scale-90 group-hover:scale-95 transition-transform duration-500"
                 />
@@ -392,7 +392,7 @@ const Integrations: React.FC = () => {
                 className="relative group order-2 lg:order-1"
               >
                 <img
-                  src="/lap-2.png"
+                  src="/ipad1.png"
                   alt="Case Management Integration"
                   className="w-full h-auto transform scale-90 group-hover:scale-95 transition-transform duration-500"
                 />
@@ -591,7 +591,7 @@ const Integrations: React.FC = () => {
                 className="relative group"
               >
                 <img
-                  src="/lap-3.png"
+                  src="/ipad5.png"
                   alt="Communication Systems Integration"
                   className="w-full h-auto transform scale-90 group-hover:scale-95 transition-transform duration-500"
                 />

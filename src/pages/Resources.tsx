@@ -14,6 +14,12 @@ const Resources: React.FC = () => {
     practiceArea: "",
   });
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [alertModalContent, setAlertModalContent] = useState({
+    title: "",
+    message: "",
+    isSuccess: true,
+  });
 
   const guides = [
     {
@@ -96,24 +102,105 @@ const Resources: React.FC = () => {
     setShowModal(true);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would send the form data to a server
-    console.log("Form submitted:", { ...formData, guide: selectedGuide });
-    alert(
-      "Thank you! Your guide is on its way to your inbox. You should receive it within the next few minutes. Please check your spam folder if you don't see it soon.",
-    );
-    setFormData({ name: "", email: "", practiceArea: "" });
-    setShowModal(false);
+
+    // Find the guide title based on selectedGuide
+    const guide = guides.find((g) => g.id === selectedGuide);
+    const guideTitle = guide ? guide.title : selectedGuide;
+
+    try {
+      const response = await fetch(
+        "https://kayse-backend.replit.app/api/zapier/guide",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            full_name: formData.name,
+            work_email: formData.email,
+            practice_area: formData.practiceArea,
+            guide_requested: guideTitle,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        setAlertModalContent({
+          title: "Guide Sent Successfully!",
+          message:
+            "Thank you! Your guide is on its way to your inbox. You should receive it within the next few minutes. Please check your spam folder if you don't see it soon.",
+          isSuccess: true,
+        });
+        setShowAlertModal(true);
+        setFormData({ name: "", email: "", practiceArea: "" });
+        setShowModal(false);
+      } else {
+        setAlertModalContent({
+          title: "Submission Failed",
+          message:
+            "There was an error submitting your request. Please try again.",
+          isSuccess: false,
+        });
+        setShowAlertModal(true);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setAlertModalContent({
+        title: "Connection Error",
+        message:
+          "There was an error submitting your request. Please try again.",
+        isSuccess: false,
+      });
+      setShowAlertModal(true);
+    }
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", newsletterEmail);
-    alert(
-      "Thank you for subscribing! You'll receive our latest insights and resources.",
-    );
-    setNewsletterEmail("");
+
+    try {
+      const response = await fetch(
+        "https://kayse-backend.replit.app/api/zapier/newsletter",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            full_name: "", // Newsletter form doesn't collect name
+            work_email: newsletterEmail,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        setAlertModalContent({
+          title: "Successfully Subscribed!",
+          message:
+            "Thank you for subscribing! You'll receive our latest insights and resources.",
+          isSuccess: true,
+        });
+        setShowAlertModal(true);
+        setNewsletterEmail("");
+      } else {
+        setAlertModalContent({
+          title: "Subscription Failed",
+          message: "There was an error subscribing. Please try again.",
+          isSuccess: false,
+        });
+        setShowAlertModal(true);
+      }
+    } catch (error) {
+      console.error("Error submitting newsletter:", error);
+      setAlertModalContent({
+        title: "Connection Error",
+        message: "There was an error subscribing. Please try again.",
+        isSuccess: false,
+      });
+      setShowAlertModal(true);
+    }
   };
 
   return (
@@ -164,9 +251,11 @@ const Resources: React.FC = () => {
                 transition={{ duration: 0.6 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.1] mb-6"
               >
-                <span className="text-white">Essential Resources for</span>
+                <span className="text-white block">
+                  Essential Resources for
+                </span>
                 <span
-                  className="bg-gradient-to-r from-white via-[#3e9dff] to-white bg-clip-text text-transparent pl-2"
+                  className="bg-gradient-to-r from-white via-[#3e9dff] to-white bg-clip-text text-transparent"
                   style={{
                     backgroundSize: "200% 100%",
                     backgroundPosition: "60% 0",
@@ -446,9 +535,9 @@ const Resources: React.FC = () => {
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-[-0.03em] leading-[1.1]">
-                <span className="text-white">See How Technology</span>
+                <span className="text-white block">See How Technology</span>
                 <span
-                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent pl-2"
+                  className="bg-gradient-to-r from-white via-[#3e9dff] via-[#3e9dff] to-white bg-clip-text text-transparent"
                   style={{
                     backgroundSize: "200% 100%",
                     backgroundPosition: "60% 0",
@@ -672,6 +761,92 @@ const Resources: React.FC = () => {
             </div>
           </motion.div>
         </div>
+      )}
+
+      {/* Alert Modal */}
+      {showAlertModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowAlertModal(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+
+          {/* Modal Content */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="relative max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="relative p-8 rounded-[2rem] overflow-hidden backdrop-blur-xl
+                          bg-gradient-to-br from-white/10 via-white/[0.07] to-transparent
+                          border border-white/20
+                          shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_40px_rgba(0,127,255,0.3)]"
+            >
+              {/* Success/Error Icon */}
+              <div className="flex justify-center mb-6">
+                <div
+                  className={`rounded-full h-20 w-20 flex items-center justify-center
+                               ${
+                                 alertModalContent.isSuccess
+                                   ? "bg-gradient-to-br from-green-500/20 to-green-600/10 border-green-500/30"
+                                   : "bg-gradient-to-br from-red-500/20 to-red-600/10 border-red-500/30"
+                               }
+                               border shadow-lg`}
+                >
+                  {alertModalContent.isSuccess ? (
+                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  ) : (
+                    <svg
+                      className="w-10 h-10 text-red-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl font-semibold text-white text-center mb-4">
+                {alertModalContent.title}
+              </h3>
+
+              {/* Message */}
+              <p className="text-white/80 text-center mb-8 leading-relaxed">
+                {alertModalContent.message}
+              </p>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setShowAlertModal(false)}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold rounded-xl
+                         bg-gradient-to-r from-blue-500 to-blue-600
+                         shadow-[0_8px_32px_rgba(59,130,246,0.3)]
+                         hover:shadow-[0_12px_40px_rgba(59,130,246,0.4)]
+                         transform hover:scale-[1.02] transition-all duration-300
+                         group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative text-white">Got it</span>
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
